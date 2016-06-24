@@ -7,7 +7,6 @@ This wrapper imitates Android-like environment to run Meme SDK in JDK7.
 * Meme SDK for Android (Tested with 1.1.0 2016.02.19)
 
 ## Usage
-### Open an endpoint.
 ```
 MemeSdk meme = new MemeSdk(new Listener() {
 	@Override
