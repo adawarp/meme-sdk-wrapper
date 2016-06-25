@@ -4,7 +4,7 @@ This wrapper imitates Android-like environment to run Meme SDK in JDK.
 ***Requirements***
 
 * JDK 7 (with option -XX:-UseSplitVerifier) or JDK 8 (with option -noverify)
-* Meme SDK for Android (Tested with 1.1.0 2016.02.19)
+* [Meme SDK for Android](https://developers.jins.com/ja/login/?goto=/sdks/android/download/1.1.0/)  (Tested with 1.1.0 2016.02.19)
 * Maven
 
 ## Usage
@@ -30,10 +30,17 @@ meme.responseCommand(gattValue);
 ## How to Build (JDK 8)
 ```sh
  $ git clone https://github.com/FantomJAC/meme-sdk-wrapper
+```
+Download [JINS Meme SDK (need to sign up)](https://developers.jins.com/ja/login/?goto=/sdks/android/download/1.1.0/) and unzip.
+```sh
  $ mv /path/to/memelib/MemeLib.jar meme-sdk-wrapper/
  $ cd meme-sdk-wrapper
  $ ./install-meme-lib.sh
  $ mvn install
  $ mvn compile
- $ ./run.sh
+```
 
+## Quick Start
+```sh
+ $ ./run.sh
+```
