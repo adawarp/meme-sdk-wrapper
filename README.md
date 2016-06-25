@@ -27,6 +27,10 @@ meme.initialize();
 meme.responseCommand(gattValue);
 ```
 
+## How to BUild (JDK 7)
+
+Open with [NetBeans](https://netbeans.org/downloads/)
+
 ## How to Build (JDK 8)
 ```sh
  $ git clone https://github.com/FantomJAC/meme-sdk-wrapper
