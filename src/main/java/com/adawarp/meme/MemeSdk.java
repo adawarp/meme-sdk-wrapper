@@ -21,6 +21,7 @@ import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import com.jins_jp.meme.MemeConnectListener;
 import com.jins_jp.meme.MemeLib;
+import com.jins_jp.meme.MemeRealtimeData;
 import com.jins_jp.meme.MemeRealtimeListener;
 import com.jins_jp.meme.MemeScanListener;
 import java.util.UUID;
@@ -32,7 +33,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Shotaro Uchida <fantom@xmaker.mx>
  */
-public class MemeSdk implements MemeConnectListener, MemeScanListener {
+public class MemeSdk implements MemeConnectListener, MemeScanListener, MemeRealtimeListener {
 
 	private final Logger logger = LoggerFactory.getLogger(MemeSdk.class);
 
@@ -66,8 +67,8 @@ public class MemeSdk implements MemeConnectListener, MemeScanListener {
 		meme.startScan(this);
 	}
 
-	public void startDataReport(MemeRealtimeListener listener) {
-		meme.startDataReport(listener);
+	public void startDataReport() {
+		meme.startDataReport(this);
 	}
 
 	public void responseCommand(byte[] gattValue) {
@@ -109,9 +110,15 @@ public class MemeSdk implements MemeConnectListener, MemeScanListener {
 		meme.connect(memeGattCtx.getDevice().getAddress());
 	}
 
+	@Override
+	public void memeRealtimeCallback(MemeRealtimeData mrd) {
+		listener.realtimeDataReceived(new MemeSdkRealtimeData(mrd));
+	}
+
 	public static interface Listener {
 		public void deviceReady();
 		public void writeCommand(byte[] gattValue);
+		public void realtimeDataReceived(MemeSdkRealtimeData data);
 	}
 
 	public static void main(String[] args) {
@@ -127,6 +134,11 @@ public class MemeSdk implements MemeConnectListener, MemeScanListener {
 			public void writeCommand(byte[] gattValue) {
 				System.out.println("Write");
 				// TODO: Send gattValue to the actual meme device
+			}
+
+			@Override
+			public void realtimeDataReceived(MemeSdkRealtimeData data) {
+				System.out.println("Received");
 			}
 		});
 		meme.initialize();
