@@ -1,9 +1,9 @@
 # JINS MEME SDK Wrapper for Java
-This wrapper imitates Android-like environment to run Meme SDK in JDK7.
+This wrapper imitates Android-like environment to run Meme SDK in JDK7/8.
 
 ***Requirements***
 
-* JDK 7 (with option -XX:-UseSplitVerifier)
+* JDK 7 (with option '-Xverify:none' for JDK8 or -XX:-UseSplitVerifier' for JDK7)
 * Meme SDK for Android (Tested with 1.1.0 2016.02.19)
 
 ## Usage
