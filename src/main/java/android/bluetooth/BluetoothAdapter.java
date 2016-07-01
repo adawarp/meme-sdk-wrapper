@@ -32,7 +32,10 @@ public class BluetoothAdapter {
 
 	public static interface LeScanCallback {
 
-		public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord);
+	public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord);
+	}
+
+	public void stopLeScan(BluetoothAdapter.LeScanCallback callback) {
 	}
 
 	public boolean isEnabled() {

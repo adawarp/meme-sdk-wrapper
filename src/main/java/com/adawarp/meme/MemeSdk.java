@@ -44,17 +44,33 @@ public class MemeSdk implements MemeConnectListener, MemeScanListener, MemeRealt
 	public static final String MEME_ADDRESS = "00:00:00:00:00:00";
 
 	/* Meme SDK */
-	private final MemeLib meme;
+	private MemeLib meme;
 
 	/* Dummy Android Instances */
-	private final Context ctx = new Context(this);
-	private final BluetoothManager btMgr = (BluetoothManager) ctx.getSystemService("bluetooth");
-	private final MemeGattContext memeGattCtx;
+	private Context ctx; 
+	private BluetoothManager btMgr;
+	private MemeGattContext memeGattCtx;
 
 	private final Listener listener;
 
 	public MemeSdk(Listener listener) {
 		this.listener = listener;
+		_init();
+	}
+
+
+	public void dispose() {
+		logger.info("Dispose meme lib");
+		meme.stopScan();
+		ctx = null;
+		btMgr = null;
+		meme = null;
+		memeGattCtx = null;	
+	}
+
+	private void _init() {
+		ctx = new Context(this);
+		btMgr = (BluetoothManager) ctx.getSystemService("bluetooth");
 		MemeLib.setAppClientID(ctx, MEME_APP_ID, MEME_APP_SECRET);
 		meme = MemeLib.getInstance();
 		meme.setMemeConnectListener(this);
@@ -64,11 +80,18 @@ public class MemeSdk implements MemeConnectListener, MemeScanListener, MemeRealt
 
 	public void initialize() {
 		// TODO: Init BT Mgr
+		if (meme == null) {
+			_init();
+		}
 		meme.startScan(this);
 	}
 
 	public void startDataReport() {
 		meme.startDataReport(this);
+	}
+
+	public void stopDataReport() {
+		meme.stopDataReport();
 	}
 
 	public void responseCommand(byte[] gattValue) {
