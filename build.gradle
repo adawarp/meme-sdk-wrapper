@@ -12,13 +12,19 @@ targetCompatibility = 1.8
 
 
 repositories {
-        
-     maven { url "http://repo.maven.apache.org/maven2" }
+
+  maven { url "http://repo.maven.apache.org/maven2" }
 }
 dependencies {
-    compile files('./MemeLib.jar')
-    compile group: 'com.parse.bolts', name: 'bolts-tasks', version:'1.4.0'
-    compile group: 'org.json', name: 'json', version:'20090211'
-    compile group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
-    compile group: 'org.slf4j', name: 'slf4j-simple', version:'1.7.21'
+  compile files('./MemeLib.jar')
+  compile group: 'com.parse.bolts', name: 'bolts-tasks', version:'1.4.0'
+  compile group: 'org.json', name: 'json', version:'20090211'
+  compile group: 'org.slf4j', name: 'slf4j-api', version:'1.7.21'
+  compile group: 'org.slf4j', name: 'slf4j-simple', version:'1.7.21'
 }
+
+task copyToLib(type: Copy) {
+  into "$buildDir/libs"
+  from configurations.runtime
+}
+build.dependsOn(copyToLib)
